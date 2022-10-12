@@ -16,4 +16,8 @@ Can have notes on date, check if workout was done
 auth page
 
 
+Individual day page
+User worked out? check box
+Notes on what he/she did, text input
+
 
