@@ -1,0 +1,19 @@
+Workout application
+Tracks user progress and workout through the week/calender
+has feature to have music recommended based on genre
+journal feature to track notes?
+mobile version?
+has user accounts, form to register auth0?
+has email to remind user every day?
+user sets goal, if reach goal success?
+
+
+Primary page
+Track workout for current date
+has view for current week, month, year
+Can have notes on date, check if workout was done
+
+auth page
+
+
+
