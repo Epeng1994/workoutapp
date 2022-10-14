@@ -26,13 +26,14 @@ function App() {
     <div className="App">
       <User/>
       <NavBar/>
-      <Routes>
-        <Route path='/' element ={<Calendar className='calendar' onChange={onChange} maxDate = {new Date()}/>}/>
-        <Route path = '' element ={<WeeklyBar dates = {[]}/>}/>
-        <Route path = '' element ={<Tracker dates={[]}/>}/>
-        <Route path = '' element ={<Post date= {selectedDate}></Post>}/>
-      </Routes>
-
+      <div>
+        <Routes>
+          <Route path = '/' element ={<Calendar className='calendar' onChange={onChange} maxDate = {new Date()}/>}/>
+          <Route path = '/weeklybar' element ={<WeeklyBar dates = {[]}/>}/>
+          <Route path = '/tracker' element ={<Tracker dates={[]}/>}/>
+          <Route path = '/post' element ={<Post date= {selectedDate}></Post>}/>
+        </Routes>
+      </div>
     </div>
   );
 }
