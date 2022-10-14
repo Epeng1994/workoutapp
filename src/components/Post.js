@@ -7,7 +7,7 @@ function Post(props){
 
     return(
         <div>
-            <input/>
+            <input placeholder='Enter here'/>
             <input type = 'checkbox' onChange = {onChange}/>
             {date}
             <button>Save</button>
