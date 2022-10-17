@@ -10,8 +10,9 @@ function NavBar(props){
     return(
         <div>
             <Link to='/'>Home</Link>
+            <Link to='/tracker'>Tracker</Link>
             <Link to='/weeklybar'>Weekly Bar</Link>
-            <Link to='/'>Calendar</Link>
+            <Link to='/calendar'>Calendar</Link>
             <Link to='/report'>Report</Link>
         </div>
     )

@@ -1,3 +1,9 @@
+//User can edit whether he/she exercised this day via check box
+//User has note section to make a post
+
+
+
+
 function Post(props){
     const {date} = props
 

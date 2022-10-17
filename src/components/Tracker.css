@@ -1,0 +1,23 @@
+.tracker{
+    display:flex;
+    width: 40% vw;
+    justify-content: center;
+}
+
+.tracker div{
+    width: 10vw;
+    height: 10vw;
+    border: 1px solid red;
+}
+
+.weekday{
+    display:flex;
+    width: 40% vw;
+    justify-content: center;
+}
+
+.weekday div{
+    width: 10vw;
+    height: 2vw;
+    border: 1px solid red;
+}
