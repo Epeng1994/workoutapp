@@ -4,10 +4,9 @@ import {Routes,Route} from 'react-router-dom';
 import Calendar from './components/Calendar'
 import User from './components/User'
 import NavBar from './components/NavBar';
-import Tracker from './components/Tracker';
 import 'react-calendar/dist/Calendar.css';
 import WeeklyBar from './components/WeeklyBar';
-
+import Home from './components/Home'
 
 function App() {
 
@@ -19,15 +18,16 @@ function App() {
 
   return (
     <div className="App">
+      <div>Working It Out</div>
       <User/>
-      <NavBar/>
       <div>
         <Routes>
+          <Route exact path = '/' element = {<Home dates={dates}/>}/>
           <Route path = '/calendar' element={<Calendar/>}/>
           <Route path = '/weeklybar' element ={<WeeklyBar dates = {[]}/>}/>
-          <Route path = '/tracker' element ={<Tracker dates={dates}/>}/>
         </Routes>
       </div>
+      <NavBar/>
     </div>
   );
 }

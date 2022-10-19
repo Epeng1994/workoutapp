@@ -6,7 +6,7 @@ import './Tracker.css'
 function Tracker(props){
 
     const {dates} = props
-    const week = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+    const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
     const [tracker, setTracker] = useState(dates)
 
     return(

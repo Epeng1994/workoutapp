@@ -1,0 +1,27 @@
+.NavBar{
+    background-color: #474444;
+    display:flex;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+nav{
+    background-color: #474444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 0vw;
+    width:100w;
+}
+
+nav .navBlock{
+    padding: 5vw;
+    color:aliceblue;
+}
+
+.container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
