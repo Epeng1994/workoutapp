@@ -1,8 +1,7 @@
 import './App.css';
-import react, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {Routes,Route} from 'react-router-dom';
 import Calendar from './components/Calendar'
-import User from './components/User'
 import NavBar from './components/NavBar';
 import 'react-calendar/dist/Calendar.css';
 import WeeklyBar from './components/WeeklyBar';
@@ -19,7 +18,6 @@ function App() {
   return (
     <div className="App">
       <div>Working It Out</div>
-      <User/>
       <div>
         <Routes>
           <Route exact path = '/' element = {<Home dates={dates}/>}/>
