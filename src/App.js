@@ -2,10 +2,10 @@ import './App.css';
 import { useState, useEffect } from 'react'
 import {Routes,Route} from 'react-router-dom';
 import Calendar from './components/Calendar'
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import 'react-calendar/dist/Calendar.css';
 import WeeklyBar from './components/WeeklyBar';
-import Home from './components/Home'
+import Home from './components/HomePage/Home'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route exact path = '/' element = {<Home dates={dates}/>}/>
           <Route path = '/calendar' element={<Calendar/>}/>
-          <Route path = '/weeklybar' element ={<WeeklyBar dates = {[]}/>}/>
+          <Route path = '/weeklybar' element ={<WeeklyBar/>}/>
         </Routes>
       </div>
       <NavBar/>

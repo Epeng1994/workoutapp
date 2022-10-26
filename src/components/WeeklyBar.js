@@ -1,16 +1,18 @@
 function WeeklyBar(props){
-    const {dates} = props
+    const today = new Date().toDateString()
+    const updateWorkout = e =>{
+        console.log(e.target)
+        e.preventDefault()
+    }
+
     return(
         <>
-            {
-                dates.map(a=>{
-                    return(
-                        <div>
-                           
-                        </div>
-                    )
-                })
-            }
+            Form to log work out
+            <form onSubmit={updateWorkout}>
+                <label>Did you workout today on {today}? </label>
+                <input type='checkbox'/>
+                <button>Submit</button>
+            </form>
         </>
     )
 }

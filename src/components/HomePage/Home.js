@@ -1,4 +1,4 @@
-import Tracker from './Tracker';
+import Tracker from '../Tracker';
 
 
 
@@ -14,6 +14,9 @@ function Home(props){
             <Tracker dates = {dates}/>
             <div>
                 <h1>Good {`${currentTimeString} ${'user'}`}</h1>
+            </div>
+            <div>
+                Music generator here
             </div>
         </div>
     )
