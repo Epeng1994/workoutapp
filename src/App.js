@@ -4,7 +4,7 @@ import {Routes,Route} from 'react-router-dom';
 import Calendar from './components/Calendar'
 import NavBar from './components/NavBar/NavBar';
 import 'react-calendar/dist/Calendar.css';
-import WeeklyBar from './components/WeeklyBar';
+import WorkoutLog from './components/WorkoutLog';
 import Home from './components/HomePage/Home'
 
 function App() {
@@ -17,12 +17,12 @@ function App() {
 
   return (
     <div className="App">
-      <div>Working It Out</div>
+      <div className = 'title'>Working It Out</div>
       <div>
         <Routes>
           <Route exact path = '/' element = {<Home dates={dates}/>}/>
           <Route path = '/calendar' element={<Calendar/>}/>
-          <Route path = '/weeklybar' element ={<WeeklyBar/>}/>
+          <Route path = '/workoutlog' element ={<WorkoutLog/>}/>
         </Routes>
       </div>
       <NavBar/>

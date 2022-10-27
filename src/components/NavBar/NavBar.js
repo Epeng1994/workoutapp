@@ -12,7 +12,7 @@ function NavBar(props){
         <div className = 'container'>
             <nav>
                 <Link to='/' className = 'navBlock'>Home</Link>
-                <Link to='/weeklybar' className = 'navBlock'>Weekly</Link>
+                <Link to='/WorkoutLog' className = 'navBlock'>Workout Log</Link>
                 <Link to='/calendar' className = 'navBlock'>Calendar</Link>
                 <Link to='/report' className = 'navBlock'>Report</Link>
             </nav>

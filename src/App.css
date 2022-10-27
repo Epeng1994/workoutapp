@@ -12,3 +12,8 @@ html{
 body{
   color:aliceblue
 }
+.title{
+  font-size: 10vw;
+  margin-top: 5vw;
+  margin-bottom: 5vw;
+}
