@@ -6,7 +6,8 @@
 }
 
 html{
-  background-color: #1b1c1e;
+  background-image: linear-gradient(to bottom, #1b1c1e, #47494e);
+  height:100%;
 }
 
 body{

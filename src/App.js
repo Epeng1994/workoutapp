@@ -6,11 +6,10 @@ import NavBar from './components/NavBar/NavBar';
 import 'react-calendar/dist/Calendar.css';
 import WorkoutLog from './components/WorkoutLog';
 import Home from './components/HomePage/Home'
+import Report from './components/Report/Report'
 
 function App() {
-
-  const [dates,setDates] = useState([1,1,1,0,0,0,1])
-
+  //grab data from backend for this week
   useEffect(()=>{
     
   })
@@ -20,9 +19,10 @@ function App() {
       <div className = 'title'>Working It Out</div>
       <div>
         <Routes>
-          <Route exact path = '/' element = {<Home dates={dates}/>}/>
+          <Route exact path = '/' element = {<Home/>}/>
           <Route path = '/calendar' element={<Calendar/>}/>
           <Route path = '/workoutlog' element ={<WorkoutLog/>}/>
+          <Route path = '/report' element ={<Report/>}/>
         </Routes>
       </div>
       <NavBar/>
