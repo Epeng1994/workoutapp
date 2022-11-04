@@ -2,17 +2,13 @@ import {useState} from 'react';
 import Tracker from './Tracker';
 import axios from 'axios';
 
-
-
-
 function WeeklyBar(props){
     const today = new Date().toDateString()
     const [dates,setDates] = useState([1,1,1,0,0,0,1])
     const [errorMsg, setErrorMsg] = useState('')
 
     const updateWorkout = e =>{
-        console.log(e.target)
-        e.preventDefault()
+         e.preventDefault()
         Promise.resolve('Task completed').then(value=>{
             axios
             .get('SomeUrl')
@@ -24,7 +20,6 @@ function WeeklyBar(props){
     return(
         <>  
             <Tracker dates = {dates}/>
-            Form to log work out
             <form onSubmit={updateWorkout}>
                 <label>Did you workout today on {today}? </label>
                 <input type='checkbox'/>
