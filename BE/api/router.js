@@ -1,5 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const userModel = require('./model.js')
+
+
 
 router.use(express.json())
 
