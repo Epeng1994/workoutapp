@@ -7,8 +7,20 @@ exports.seed = async function(knex) {
     .then(()=>{
       return db('workouts').insert([
         {
-          workout_Date:'01/01/2022'
-        }
+          user_id:1,
+          workout_Date:'01/01/2022',
+          completed:true          
+        },
+        {
+          user_id:1,
+          workout_Date:'01/02/2022',
+          completed:true          
+        },
+        {
+          user_id:2,
+          workout_Date:'01/03/2022',
+          completed:true          
+        },
       ]);
     })
 };
