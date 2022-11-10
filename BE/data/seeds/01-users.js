@@ -1,5 +1,7 @@
 const db = require('../dbConfig')
 
+
+
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   return db('users').truncate()
@@ -7,8 +9,16 @@ exports.seed = async function(knex) {
       return db('users').insert([
         {
           username:'Eric',
-          password:'123'
-        }
-      ])
+          password:'111'
+        },
+        {
+          username:'Joe',
+          password:'222'
+        },
+        {
+          username:'Lisa',
+          password:'333'
+        },
+      ]);
     })
 };
