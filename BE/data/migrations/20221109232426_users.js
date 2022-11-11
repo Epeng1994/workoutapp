@@ -13,7 +13,7 @@ exports.up = function(knex) {
     tbl.increments('workout_id')
     tbl.text('user_id').unsigned().notNullable().references('user_id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
     tbl.string('workout_Date').notNullable().unique()
-    tbl.boolean('Completed').defaultTo(false)
+    tbl.boolean('completed').defaultTo(false)
   })
 };
 

@@ -8,7 +8,12 @@ async function getAllWorkouts(){
     return await db('workouts')
 }
 
+async function getUserByID(id){
+    return await db('users').where({id})
+}
+
 module.exports = {
     getAllUsers,
-    getAllWorkouts
+    getAllWorkouts,
+    getUserByID
 }
