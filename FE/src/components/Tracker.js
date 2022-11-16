@@ -1,13 +1,17 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import TrackerDate from './TrackerDate'
 import './Tracker.css'
 
 
 
-function scheduleBuilder(startDate){
+function scheduleBuilder(startDate, dataArray){
     const today = new Date(startDate)
 
     let calendarWeek = new Set();
+
+    for(let date of dataArray){
+        calendarWeek.add(date)
+    }
    
     let dataToMap = [];
     
@@ -23,11 +27,17 @@ function scheduleBuilder(startDate){
 
 
 function Tracker(props){
-
+    const today = new Date(today.getTime()).toISOString().split('T')[0]
     const {dates} = props
+    const [selectedDate,setSelectedDate] = useState('')
     const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
     const [tracker, setTracker] = useState(dates)
     
+
+    useEffect(()=>{
+        setTracker(scheduleBuilder(dates))
+    },[dates])
+
 
     return(
         <div  >
