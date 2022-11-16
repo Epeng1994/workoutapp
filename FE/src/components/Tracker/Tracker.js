@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react'
-import TrackerDate from './TrackerDate'
 import './Tracker.css'
 
 
@@ -23,18 +22,15 @@ function scheduleBuilder(startDate, dataArray){
     return dataToMap;
 }
 
-
 function Tracker(props){
     const today = new Date().toISOString().split('T')[0]
     const {dates} = props
-    const [selectedDate,setSelectedDate] = useState('')
     const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
     const [tracker, setTracker] = useState([])
     
     useEffect(()=>{
         setTracker(scheduleBuilder(today,dates))
     },[dates])
-
 
     return(
         <div  >
@@ -55,7 +51,7 @@ function Tracker(props){
                     tracker.map(a=>{
                         return(
                             <div>
-                                <TrackerDate exercise={a}/>
+                                <div className = {a===true? 'completed':'default'}/>
                             </div>
                         )
                     })
