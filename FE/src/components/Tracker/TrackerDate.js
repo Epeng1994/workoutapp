@@ -6,7 +6,7 @@ function TrackerDate(props){
     const{exercise} = props
 
     return(
-        <div className = {exercise===1? 'completed':'default'}>
+        <div className = {exercise===true? 'completed':'default'}>
 
         </div>
     )

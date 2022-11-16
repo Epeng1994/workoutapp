@@ -9,33 +9,30 @@ function scheduleBuilder(startDate, dataArray){
 
     let calendarWeek = new Set();
 
-    for(let date of dataArray){
-        calendarWeek.add(date)
+    for(let data of dataArray){
+        calendarWeek.add(data.date)
     }
-   
+
     let dataToMap = [];
-    
     for(let i = 6;i>=0;i--){
         const dateCopy = new Date(today.getTime());
         dateCopy.setDate(dateCopy.getDate() - i);
         let check = dateCopy.toISOString().split('T')[0]
         calendarWeek.has(check) ? dataToMap.push(true) : dataToMap.push(false)
     }
-
     return dataToMap;
 }
 
 
 function Tracker(props){
-    const today = new Date(today.getTime()).toISOString().split('T')[0]
+    const today = new Date().toISOString().split('T')[0]
     const {dates} = props
     const [selectedDate,setSelectedDate] = useState('')
     const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
-    const [tracker, setTracker] = useState(dates)
+    const [tracker, setTracker] = useState([])
     
-
     useEffect(()=>{
-        setTracker(scheduleBuilder(dates))
+        setTracker(scheduleBuilder(today,dates))
     },[dates])
 
 
