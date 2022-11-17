@@ -1,36 +1,31 @@
 import {useState, useEffect} from 'react'
 import './Tracker.css'
 
-
-
-function scheduleBuilder(startDate, dataArray){
-    const today = new Date(startDate)
-
-    let calendarWeek = new Set();
-
-    for(let data of dataArray){
-        calendarWeek.add(data.date)
-    }
-
+function scheduleBuilder(weekArray, dataArray){
     let dataToMap = [];
-    for(let i = 6;i>=0;i--){
-        const dateCopy = new Date(today.getTime());
-        dateCopy.setDate(dateCopy.getDate() - i);
-        let check = dateCopy.toISOString().split('T')[0]
-        calendarWeek.has(check) ? dataToMap.push(true) : dataToMap.push(false)
+    let dateSet = new Set()
+    for(let date of dataArray){
+        dateSet.add(date.date)
+    }
+    for(let i = 0;i<7;i++){
+        let currentDate = weekArray[i]
+        if(dateSet.has(currentDate)){
+            dataToMap.push(true)
+        }else{
+            dataToMap.push(false)
+        }
     }
     return dataToMap;
 }
 
 function Tracker(props){
-    const today = new Date().toISOString().split('T')[0]
-    const {dates} = props
+    const {dates, thisWeek} = props
     const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
     const [tracker, setTracker] = useState([])
     
     useEffect(()=>{
-        setTracker(scheduleBuilder(today,dates))
-    },[dates])
+        setTracker(scheduleBuilder(thisWeek,dates))
+    },[])
 
     return(
         <div  >
@@ -45,7 +40,17 @@ function Tracker(props){
                     })
                 }
             </div>
-
+            <div className = 'weekday'>
+                {
+                    thisWeek.map(a=>{
+                        return(
+                            <div>
+                                {a}
+                            </div>
+                        )
+                    })
+                }
+            </div>
             <div className = 'tracker'>
                 {
                     tracker.map(a=>{
@@ -57,7 +62,6 @@ function Tracker(props){
                     })
                 }
             </div>
-            
         </div>
     )
 }

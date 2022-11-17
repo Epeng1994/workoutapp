@@ -8,8 +8,8 @@ const filteredData= [
         "date": "2022-11-14",
     },
     {
-        "user_id": "2",
-        "date": "2022-11-16",
+        "user_id": "1",
+        "date": "2022-11-15",
     },
     {
         "user_id": "1",
@@ -20,7 +20,7 @@ const filteredData= [
 function WeeklyBar(props){
     const today = new Date().toISOString().split('T')[0]
     const [dates,setDates] = useState(filteredData)
-    const [errorMsg, setErrorMsg] = useState('')
+    const [thisWeek, setThisWeek] = useState(currentWeekSet())
     const [message,setMessage] = useState('')
 
     const updateWorkout = e =>{
@@ -34,7 +34,7 @@ function WeeklyBar(props){
             })
     }
 
-    const currentWeek = e =>{
+    function currentWeekSet(){
         const day = new Date();
         let weekday = day.toDateString().split(' ')[0];
         let startDate = new Date(day.getTime());
@@ -44,23 +44,24 @@ function WeeklyBar(props){
             startDate.setDate(day.getDate()-i);
             weekday = startDate.toDateString().split(' ')[0];
         };
-        //console.log(startDate)
-        return startDate;
+
+        let dateSet = []
+        for(let i=0;i<7;i++){
+            const dateCopy = new Date(startDate.getTime());
+            dateCopy.setDate(dateCopy.getDate() + i);
+            dateSet.push(dateCopy.toISOString().split('T')[0])
+        }
+        return dateSet;
     };
-
-
-
 
     return(
         <>  
-            <Tracker dates = {dates}/>
-            <form onSubmit={updateWorkout}>
-                <label>Check in for {today}</label>
-                <button>Submit</button>
-            </form>
-            <div>{errorMsg}</div>
-            {message ? <div>{message}</div>: null}
-            <button onClick = {()=>currentWeek()}>Day</button>
+        <Tracker dates = {dates} thisWeek = {thisWeek}/>
+        <form onSubmit={updateWorkout}>
+            <button>Check in for {today}</button>
+        </form>
+        {message ? <div>{message}</div>: null}
+        <button onClick = {()=>currentWeekSet()}>Day</button>
         </>
     )
 }
