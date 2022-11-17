@@ -1,10 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const userModel = require('./model.js')
+const middleware = require('./middleware');
 
 router.use(express.json())
 
-router.get('/users', (req,res)=>{
+router.get('/users', (req,res,next)=>{
     userModel.getAllUsers()
         .then(result=>{
             res.json(result)
@@ -14,7 +15,7 @@ router.get('/users', (req,res)=>{
         })
 })
 
-router.get('/workouts', (req,res)=>{
+router.get('/workouts', (req,res,next)=>{
     userModel.getAllWorkouts()
         .then(result=>{
             res.json(result)
@@ -24,7 +25,12 @@ router.get('/workouts', (req,res)=>{
         })
 })
 
-router.get('/users/:id',(req,res)=>{
+router.post('/workouts', middleware.uniqueDate,(req,res,next)=>{
+    const result = req.result
+    res.json(result)
+})
+
+router.get('/users/:id',(req,res,next)=>{
     const id = req.params
     userModel.getUserByID(id)
         .then(results=>{
@@ -35,7 +41,7 @@ router.get('/users/:id',(req,res)=>{
         })
 })
 
-router.post('/users/:id',(req,res)=>{
+router.post('/users/:id',(req,res,next)=>{
     const id = req.params
     userModel.addWorkoutById(req.body)
         .then(result=>{

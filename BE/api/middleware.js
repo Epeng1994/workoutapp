@@ -2,10 +2,16 @@ const db = require('../data/dbConfig');
 const model = require('./model');
 
 async function uniqueDate(req,res,next){
-    const date = req.params.date
+    const date = req.body.date
     model.findWorkoutByDate(date)
         .then(result=>{
-            res.json(result)
+            //res.json(result)
+            if(result.length>0){
+                return res.status(400).json(`You've already logged that day`)
+            }else{
+                req.result = result
+                next()
+            }
         })
         .catch(error=>{
             res.status(404).json(error)
