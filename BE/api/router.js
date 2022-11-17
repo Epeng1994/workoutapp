@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const userModel = require('./model.js')
 
-
-
 router.use(express.json())
 
 router.get('/users', (req,res)=>{
@@ -37,5 +35,15 @@ router.get('/users/:id',(req,res)=>{
         })
 })
 
+router.post('/users/:id',(req,res)=>{
+    const id = req.params
+    userModel.addWorkoutById(req.body)
+        .then(result=>{
+            res.json('Workout logged')
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+})
 
 module.exports = router

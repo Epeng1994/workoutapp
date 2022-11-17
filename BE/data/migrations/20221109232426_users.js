@@ -10,12 +10,8 @@ exports.up = function(knex) {
     tbl.string('password',255).notNullable()
   })
   .createTable('workouts',tbl=>{
-    tbl.increments('workout_id')
     tbl.text('user_id').unsigned().notNullable().references('user_id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
-    tbl.string('month').notNullable()
-    tbl.string('day').notNullable()
-    tbl.string('year').notNullable()
-    tbl.boolean('completed').defaultTo(false)
+    tbl.string('date').notNullable()
   })
 };
 
