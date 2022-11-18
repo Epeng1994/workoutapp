@@ -3,13 +3,14 @@ const cors = require('cors')
 const helmet = require('helmet')
 
 const server = express()
-const router = require('./router.js')
+const userRouter = require('./router.js')
+const workoutRouter = require('./workout/router.js');
 
 server.use(helmet())
 server.use(cors())
 server.use(express.json())
 
-server.use('/data', router)
+server.use('/workouts', workoutRouter)
 
 
 //general global error middleware

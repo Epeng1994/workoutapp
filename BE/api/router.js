@@ -15,31 +15,6 @@ router.get('/users', (req,res,next)=>{
         })
 })
 
-router.get('/workouts', (req,res,next)=>{
-    userModel.getAllWorkouts()
-        .then(result=>{
-            res.json(result)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-})
-
-router.get('/workouts/:id', (req,res,next)=>{
-    const id = req.params.id
-    userModel.getWorkoutsById(id)
-        .then(result=>{
-            res.json(result)
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-})
-
-router.post('/workouts/:id', middleware.uniqueDate,(req,res,next)=>{
-    const result = req.result
-    res.json(result)
-})
 
 router.get('/users/:id',(req,res,next)=>{
     const id = req.params
@@ -54,13 +29,7 @@ router.get('/users/:id',(req,res,next)=>{
 
 router.post('/users/:id',(req,res,next)=>{
     const id = req.params
-    userModel.addWorkoutById(req.body)
-        .then(result=>{
-            res.json('Workout logged')
-        })
-        .catch(error=>{
-            console.log(error)
-        })
+
 })
 
 module.exports = router
