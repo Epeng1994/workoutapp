@@ -25,14 +25,25 @@ router.get('/workouts', (req,res,next)=>{
         })
 })
 
-router.post('/workouts', middleware.uniqueDate,(req,res,next)=>{
+router.get('/workouts/:id', (req,res,next)=>{
+    const id = req.params.id
+    userModel.getWorkoutsById(id)
+        .then(result=>{
+            res.json(result)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+})
+
+router.post('/workouts/:id', middleware.uniqueDate,(req,res,next)=>{
     const result = req.result
     res.json(result)
 })
 
 router.get('/users/:id',(req,res,next)=>{
     const id = req.params
-    userModel.getUserByID(id)
+    userModel.getUserById(id)
         .then(results=>{
             res.json(results)
         })
