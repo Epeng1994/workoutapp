@@ -20,7 +20,6 @@ function scheduleBuilder(weekArray, dataArray){
 
 function Tracker(props){
     const {dates, thisWeek} = props
-    const week = ['SUN','MON','TUE','WED','THU','FRI','SAT']
     const [tracker, setTracker] = useState([])
     
     useEffect(()=>{
@@ -29,17 +28,6 @@ function Tracker(props){
 
     return(
         <div  >
-            <div className = 'weekday'>
-                {
-                    week.map(a=>{
-                        return(
-                            <div>
-                                {a}
-                            </div>
-                        )
-                    })
-                }
-            </div>
             <div className = 'weekday'>
                 {
                     thisWeek.map(a=>{
