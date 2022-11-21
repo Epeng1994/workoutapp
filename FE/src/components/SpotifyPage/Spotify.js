@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import axios from 'axios';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI
@@ -7,7 +8,8 @@ const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE
 
 function Spotify(props){
     const [token,setToken] = useState('');
-
+    const [searchKey, setSearchKey] = useState('')
+    const [artists, setArtists] = useState([])
 
     useEffect(()=>{
         const hash = window.location.hash
@@ -29,6 +31,29 @@ function Spotify(props){
         window.localStorage.removeItem('token')
     }
 
+    
+    const searchArtists = async (e) =>{
+        e.preventDefault();
+        const {data} = await axios.get("https://api.spotify.com/v1/search",{
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                q: searchKey,
+                type: "artist"
+            }
+        })
+    }
+
+    const renderArtists = () => {
+        return artists.map(artist => (
+            <div key={artist.id}>
+                {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+                {artist.name}
+            </div>
+        ))
+    }
+
     return(
         <>
             <div>
@@ -36,6 +61,11 @@ function Spotify(props){
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
                     : <button onClick={logout}>Logout</button>
                 }
+                <form onSubmit={searchArtists}>
+                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+                    <button type={"submit"}>Search</button>
+                </form>
+                {renderArtists()}
             </div>
         </>
     )
