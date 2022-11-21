@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
+import './Spotify.css';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI
@@ -36,6 +38,18 @@ function Spotify(props){
         e.preventDefault();
         const {data} = await axios.get("https://api.spotify.com/v1/search",{
             headers: {
+                Authorization: `Bearer BQAEw6DHJV3-H0DpsXOga4ZEgs427RtGmrBfebzpPFGXAsTjgrdOopmW1URP_xI4Q2xT6ip3qnayC-0nc4DKIu2k0Pi8hnJt5Dl1A6qOVhkdsPzU2Rr9KOzjHWhmpojZqgS4orPFNCVo8KYbcLx7PiPRaQKkKM7dcVULpfcDHISFOHf1GDIShtbM5nyf9ozy2qw`
+            },
+            params: {
+                q: searchKey,
+                type: "artist"
+            }
+        })
+        setArtists(data.artists.items);
+    }
+    const searchByArtistId = async id =>{
+        await axios.get(`https://api.spotify.com/v1/artists/${id}/top-tracks`,{
+            headers: {
                 Authorization: `Bearer ${token}`
             },
             params: {
@@ -43,16 +57,24 @@ function Spotify(props){
                 type: "artist"
             }
         })
+            .then(result=>{
+                console.log(result)
+            })
+            .catch(error=>{
+                console.log(error)
+            })
     }
 
     const renderArtists = () => {
         return artists.map(artist => (
-            <div key={artist.id}>
-                {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-                {artist.name}
+            <div onClick = {()=>searchByArtistId(artist.id)}className = "artist" key={artist.id}>
+                <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
+                <div>{artist.name}</div>
             </div>
         ))
     }
+
+    
 
     return(
         <>
@@ -65,7 +87,10 @@ function Spotify(props){
                     <input type="text" onChange={e => setSearchKey(e.target.value)}/>
                     <button type={"submit"}>Search</button>
                 </form>
-                {renderArtists()}
+                <div className = "artistGrid">
+                    {renderArtists()}
+                </div>
+                
             </div>
         </>
     )

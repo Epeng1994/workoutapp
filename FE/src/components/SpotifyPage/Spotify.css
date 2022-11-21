@@ -1,0 +1,18 @@
+.artist{
+    display:flex;
+    flex-flow: column;
+    padding:5vw;
+}
+
+.artist img{
+    width:15vw;
+    height:15vw;
+}
+
+.artistGrid{
+    display:flex;
+    flex-flow:column;
+    justify-content: space-between;
+    align-items: center;
+}
+
