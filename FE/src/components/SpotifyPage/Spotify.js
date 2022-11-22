@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import './Spotify.css';
+import Playlist from './Playlist';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -11,8 +12,6 @@ const auth = process.env.REACT_APP_0AUTH_TOKEN;
 
 function Spotify(props){
     const [token,setToken] = useState('');
-    // const [searchKey, setSearchKey] = useState('');
-    // const [artists, setArtists] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
 
@@ -37,48 +36,6 @@ function Spotify(props){
         setToken('');
         window.localStorage.removeItem('token');
     };
-    
-    // const searchArtists = async (e) =>{
-    //     e.preventDefault();
-    //     const {data} = await axios.get("https://api.spotify.com/v1/search",{
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         },
-    //         params: {
-    //             q: searchKey,
-    //             type: "artist"
-    //         }
-    //     });
-    //     setArtists(data.artists.items);
-    // };
-
-    // const clearSearch = (e) =>{
-    //     setArtists([]);
-    // };
-
-    // const searchByArtistId = async id =>{
-    //     await axios.get(`https://api.spotify.com/v1/browse/categories/acoustic?country=SE&locale=sv_SE`,{
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //         }
-    //     })
-    //     .then(result=>{
-    //         console.log(result)
-    //     })
-    //     .catch(error=>{
-    //         console.log(error)
-    //     })
-    // }
-
-    // const renderArtists = () => {
-    //     return artists.map(artist => (
-    //         //onClick = {()=>searchByArtistId(artist.id)}
-    //         <div className = "artist" key={artist.id}>
-    //             <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
-    //             <div>{artist.name}</div>
-    //         </div>
-    //     ));
-    // };
 
     async function renderCategories(){
         await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
@@ -104,7 +61,7 @@ function Spotify(props){
             }
         })
         .then(result=>{
-            console.log(result.data)
+            console.log(result.data.playlists.items)
         })
         .catch(error=>{
             console.log(error.response.data.error.message)
@@ -118,17 +75,6 @@ function Spotify(props){
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
                     : <button onClick={logout}>Logout</button>
                 }
-                <div className = "container">
-                {/* <form onSubmit={searchArtists}>
-                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                    <button>Search</button>
-                </form>
-                <button onClick = {()=>clearSearch()}>Clear</button> */
-                }
-                </div>
-                {/* <div className = "artistGrid">
-                    {artists ? renderArtists() : null}
-                </div> */}
                 <div>
                     <label for='categories'>Categories</label>
                     <select onChange ={e=> setSelectedCategory(e.target.value)}type='drop'>
@@ -142,6 +88,7 @@ function Spotify(props){
                     <button onClick = {()=>searchByCategory(selectedCategory)}>Search</button>
                 </div>
             </div>
+            <Playlist data={''}/>
         </>
     )
 }
