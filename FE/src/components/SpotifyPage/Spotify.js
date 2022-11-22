@@ -11,29 +11,29 @@ const auth = process.env.REACT_APP_0AUTH_TOKEN
 
 function Spotify(props){
     const [token,setToken] = useState('');
-    const [searchKey, setSearchKey] = useState('')
-    const [artists, setArtists] = useState([])
-    const [categories, setCategories] = useState([])
+    const [searchKey, setSearchKey] = useState('');
+    const [artists, setArtists] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState([]);
 
     useEffect(()=>{
-        const hash = window.location.hash
-        let token = window.localStorage.getItem("token")
-    
+        const hash = window.location.hash;
+        let token = window.localStorage.getItem("token");
         if (!token && hash) {
             token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
     
-            window.location.hash = ""
-            window.localStorage.setItem("token", token)
-        }
-    
-        setToken(token)
-    },[])
+            window.location.hash = "";
+            window.localStorage.setItem("token", token);
+        };
+        setToken(token);
+        renderCategories();
+    },[]);
 
 
     const logout = () =>{
-        setToken('')
-        window.localStorage.removeItem('token')
-    }
+        setToken('');
+        window.localStorage.removeItem('token');
+    };
     
     const searchArtists = async (e) =>{
         e.preventDefault();
@@ -45,13 +45,13 @@ function Spotify(props){
                 q: searchKey,
                 type: "artist"
             }
-        })
+        });
         setArtists(data.artists.items);
-    }
+    };
 
     const clearSearch = (e) =>{
         setArtists([]);
-    }
+    };
 
     // const searchByArtistId = async id =>{
     //     await axios.get(`https://api.spotify.com/v1/browse/categories/acoustic?country=SE&locale=sv_SE`,{
@@ -74,23 +74,22 @@ function Spotify(props){
                 <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
                 <div>{artist.name}</div>
             </div>
-        ))
-    }
+        ));
+    };
 
-    const renderCategories = async () =>{
+    async function renderCategories(){
         await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
         .then(result=>{
-            console.log(result.data.categories.items)
             setCategories(result.data.categories.items)
         })
         .catch(error=>{
             console.log(error)
         })
-    }
+    };
     
 
     return(
@@ -101,20 +100,19 @@ function Spotify(props){
                     : <button onClick={logout}>Logout</button>
                 }
                 <div className = "container">
-                    <form onSubmit={searchArtists}>
+                    {/* <form onSubmit={searchArtists}>
                         <input type="text" onChange={e => setSearchKey(e.target.value)}/>
                         <button>Search</button>
                     </form>
-                    <button onClick = {()=>clearSearch()}>Clear</button>
+                    <button onClick = {()=>clearSearch()}>Clear</button> */}
                 </div>
                 <div className = "artistGrid">
                     {artists ? renderArtists() : null}
                 </div>
-
-                <button onClick = {()=>renderCategories()}>Category</button>
                 <div>
                     <label for='categories'>Categories</label>
                     <select type='drop'>
+                        <option>-----</option>
                         {categories ? categories.map(item=>{
                             return(
                                 <option>{item.name}</option>
