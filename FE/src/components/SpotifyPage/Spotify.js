@@ -3,16 +3,16 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import './Spotify.css';
 
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
-const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI
-const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT
-const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE
-const auth = process.env.REACT_APP_0AUTH_TOKEN
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT;
+const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
+const auth = process.env.REACT_APP_0AUTH_TOKEN;
 
 function Spotify(props){
     const [token,setToken] = useState('');
-    const [searchKey, setSearchKey] = useState('');
-    const [artists, setArtists] = useState([]);
+    // const [searchKey, setSearchKey] = useState('');
+    // const [artists, setArtists] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
 
@@ -27,31 +27,34 @@ function Spotify(props){
         };
         setToken(token);
         renderCategories();
+        return ()=>{
+
+        }
     },[]);
 
 
-    const logout = () =>{
+    function logout(){
         setToken('');
         window.localStorage.removeItem('token');
     };
     
-    const searchArtists = async (e) =>{
-        e.preventDefault();
-        const {data} = await axios.get("https://api.spotify.com/v1/search",{
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-            params: {
-                q: searchKey,
-                type: "artist"
-            }
-        });
-        setArtists(data.artists.items);
-    };
+    // const searchArtists = async (e) =>{
+    //     e.preventDefault();
+    //     const {data} = await axios.get("https://api.spotify.com/v1/search",{
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         },
+    //         params: {
+    //             q: searchKey,
+    //             type: "artist"
+    //         }
+    //     });
+    //     setArtists(data.artists.items);
+    // };
 
-    const clearSearch = (e) =>{
-        setArtists([]);
-    };
+    // const clearSearch = (e) =>{
+    //     setArtists([]);
+    // };
 
     // const searchByArtistId = async id =>{
     //     await axios.get(`https://api.spotify.com/v1/browse/categories/acoustic?country=SE&locale=sv_SE`,{
@@ -67,15 +70,15 @@ function Spotify(props){
     //     })
     // }
 
-    const renderArtists = () => {
-        return artists.map(artist => (
-            //onClick = {()=>searchByArtistId(artist.id)}
-            <div className = "artist" key={artist.id}>
-                <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
-                <div>{artist.name}</div>
-            </div>
-        ));
-    };
+    // const renderArtists = () => {
+    //     return artists.map(artist => (
+    //         //onClick = {()=>searchByArtistId(artist.id)}
+    //         <div className = "artist" key={artist.id}>
+    //             <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
+    //             <div>{artist.name}</div>
+    //         </div>
+    //     ));
+    // };
 
     async function renderCategories(){
         await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
@@ -84,13 +87,29 @@ function Spotify(props){
             }
         })
         .then(result=>{
+            //console.log(result.data.categories.items)
             setCategories(result.data.categories.items)
         })
         .catch(error=>{
-            console.log(error)
+            console.log(error.response.data.error.message)
         })
     };
     
+
+    const searchByCategory = async category_id => {
+        //console.log(category_id)
+        await axios.get(`https://api.spotify.com/v1/browse/categories/${category_id}/playlists`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(result=>{
+            console.log(result.data)
+        })
+        .catch(error=>{
+            console.log(error.response.data.error.message)
+        })
+    }
 
     return(
         <>
@@ -100,28 +119,28 @@ function Spotify(props){
                     : <button onClick={logout}>Logout</button>
                 }
                 <div className = "container">
-                    {/* <form onSubmit={searchArtists}>
-                        <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                        <button>Search</button>
-                    </form>
-                    <button onClick = {()=>clearSearch()}>Clear</button> */}
+                {/* <form onSubmit={searchArtists}>
+                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+                    <button>Search</button>
+                </form>
+                <button onClick = {()=>clearSearch()}>Clear</button> */
+                }
                 </div>
-                <div className = "artistGrid">
+                {/* <div className = "artistGrid">
                     {artists ? renderArtists() : null}
-                </div>
+                </div> */}
                 <div>
                     <label for='categories'>Categories</label>
-                    <select type='drop'>
-                        <option>-----</option>
-                        {categories ? categories.map(item=>{
+                    <select onChange ={e=> setSelectedCategory(e.target.value)}type='drop'>
+                        <option value= ''>-----</option>
+                        {categories ? categories.sort(a=>a.name).map(item=>{
                             return(
-                                <option>{item.name}</option>
+                                <option id = {item.id} value = {item.id}>{item.name}</option>
                             )
                         }): null}
                     </select>
+                    <button onClick = {()=>searchByCategory(selectedCategory)}>Search</button>
                 </div>
-
-
             </div>
         </>
     )
