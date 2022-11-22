@@ -7,11 +7,13 @@ const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI
 const AUTH_ENDPOINT = process.env.REACT_APP_AUTH_ENDPOINT
 const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE
+const auth = process.env.REACT_APP_0AUTH_TOKEN
 
 function Spotify(props){
     const [token,setToken] = useState('');
     const [searchKey, setSearchKey] = useState('')
     const [artists, setArtists] = useState([])
+    const [categories, setCategories] = useState([])
 
     useEffect(()=>{
         const hash = window.location.hash
@@ -32,23 +34,10 @@ function Spotify(props){
         setToken('')
         window.localStorage.removeItem('token')
     }
-
     
     const searchArtists = async (e) =>{
         e.preventDefault();
         const {data} = await axios.get("https://api.spotify.com/v1/search",{
-            headers: {
-                Authorization: `Bearer BQAEw6DHJV3-H0DpsXOga4ZEgs427RtGmrBfebzpPFGXAsTjgrdOopmW1URP_xI4Q2xT6ip3qnayC-0nc4DKIu2k0Pi8hnJt5Dl1A6qOVhkdsPzU2Rr9KOzjHWhmpojZqgS4orPFNCVo8KYbcLx7PiPRaQKkKM7dcVULpfcDHISFOHf1GDIShtbM5nyf9ozy2qw`
-            },
-            params: {
-                q: searchKey,
-                type: "artist"
-            }
-        })
-        setArtists(data.artists.items);
-    }
-    const searchByArtistId = async id =>{
-        await axios.get(`https://api.spotify.com/v1/artists/${id}/top-tracks`,{
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -57,23 +46,51 @@ function Spotify(props){
                 type: "artist"
             }
         })
-            .then(result=>{
-                console.log(result)
-            })
-            .catch(error=>{
-                console.log(error)
-            })
+        setArtists(data.artists.items);
     }
+
+    const clearSearch = (e) =>{
+        setArtists([]);
+    }
+
+    // const searchByArtistId = async id =>{
+    //     await axios.get(`https://api.spotify.com/v1/browse/categories/acoustic?country=SE&locale=sv_SE`,{
+    //         headers: {
+    //             Authorization: `Bearer ${token}`
+    //         }
+    //     })
+    //     .then(result=>{
+    //         console.log(result)
+    //     })
+    //     .catch(error=>{
+    //         console.log(error)
+    //     })
+    // }
 
     const renderArtists = () => {
         return artists.map(artist => (
-            <div onClick = {()=>searchByArtistId(artist.id)}className = "artist" key={artist.id}>
+            //onClick = {()=>searchByArtistId(artist.id)}
+            <div className = "artist" key={artist.id}>
                 <img src={artist.images.length ? artist.images[0].url:'/music_icon.png'} alt="artist image"/>
                 <div>{artist.name}</div>
             </div>
         ))
     }
 
+    const renderCategories = async () =>{
+        await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(result=>{
+            console.log(result.data.categories.items)
+            setCategories(result.data.categories.items)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
     
 
     return(
@@ -83,14 +100,30 @@ function Spotify(props){
                     <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
                     : <button onClick={logout}>Logout</button>
                 }
-                <form onSubmit={searchArtists}>
-                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                    <button type={"submit"}>Search</button>
-                </form>
-                <div className = "artistGrid">
-                    {renderArtists()}
+                <div className = "container">
+                    <form onSubmit={searchArtists}>
+                        <input type="text" onChange={e => setSearchKey(e.target.value)}/>
+                        <button>Search</button>
+                    </form>
+                    <button onClick = {()=>clearSearch()}>Clear</button>
                 </div>
-                
+                <div className = "artistGrid">
+                    {artists ? renderArtists() : null}
+                </div>
+
+                <button onClick = {()=>renderCategories()}>Category</button>
+                <div>
+                    <label for='categories'>Categories</label>
+                    <select type='drop'>
+                        {categories ? categories.map(item=>{
+                            return(
+                                <option>{item.name}</option>
+                            )
+                        }): null}
+                    </select>
+                </div>
+
+
             </div>
         </>
     )
