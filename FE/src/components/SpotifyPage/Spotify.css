@@ -16,7 +16,25 @@
     align-items: center;
 }
 
+.playlist{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.playlistInfo{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
 .playlist img{
     width:50vw;
     height:50vw;
+}
+
+.playlistDescription{
+    width:50%;
 }
