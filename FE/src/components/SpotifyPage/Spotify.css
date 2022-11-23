@@ -16,3 +16,7 @@
     align-items: center;
 }
 
+.playlist img{
+    width:50vw;
+    height:50vw;
+}

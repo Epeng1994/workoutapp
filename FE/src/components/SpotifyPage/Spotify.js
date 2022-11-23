@@ -14,6 +14,7 @@ function Spotify(props){
     const [token,setToken] = useState('');
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
+    const [categoryData, setCategoryData] = useState('');
 
     useEffect(()=>{
         const hash = window.location.hash;
@@ -61,7 +62,9 @@ function Spotify(props){
             }
         })
         .then(result=>{
-            console.log(result.data.playlists.items)
+            let randomIndexGenerator = Math.floor(Math.random()*20)
+            //console.log(result.data.playlists.items[randomIndexGenerator])
+            setCategoryData(result.data.playlists.items[randomIndexGenerator])
         })
         .catch(error=>{
             console.log(error.response.data.error.message)
@@ -88,7 +91,7 @@ function Spotify(props){
                     <button onClick = {()=>searchByCategory(selectedCategory)}>Search</button>
                 </div>
             </div>
-            <Playlist data={''}/>
+            {categoryData && <Playlist data={categoryData}/>}
         </>
     )
 }
