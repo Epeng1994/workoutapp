@@ -26,7 +26,7 @@ function Spotify(props){
             window.localStorage.setItem("token", token);
         };
         setToken(token);
-        renderCategories();
+        if(categories.length<1)renderCategories();
         return ()=>{
 
         }
@@ -45,8 +45,13 @@ function Spotify(props){
             }
         })
         .then(result=>{
-            //console.log(result.data.categories.items)
-            setCategories(result.data.categories.items)
+            let data = [...result.data.categories.items].sort((a,b)=>{
+                let textA = a.name.toUpperCase()
+                let textB = b.name.toUpperCase()
+                return (textA < textB) ? -1 : (textA>textB) ? 1 : 0
+            })
+            //console.log(data)
+            setCategories(data)
         })
         .catch(error=>{
             console.log(error.response.data.error.message)
