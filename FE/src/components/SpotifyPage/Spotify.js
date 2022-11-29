@@ -60,7 +60,6 @@ function Spotify(props){
     
 
     const searchByCategory = async category_id => {
-        //console.log(category_id)
         await axios.get(`https://api.spotify.com/v1/browse/categories/${category_id}/playlists`,{
             headers: {
                 Authorization: `Bearer ${token}`
@@ -68,7 +67,6 @@ function Spotify(props){
         })
         .then(result=>{
             let randomIndexGenerator = Math.floor(Math.random()*20)
-            //console.log(result.data.playlists.items[randomIndexGenerator])
             setCategoryData(result.data.playlists.items[randomIndexGenerator])
         })
         .catch(error=>{
@@ -84,6 +82,7 @@ function Spotify(props){
                     : <button onClick={logout}>Logout</button>
                 }
                 <div>
+                    <h3>Need a playlist suggestion?</h3>
                     <label for='categories'>Categories</label>
                     <select onChange ={e=> setSelectedCategory(e.target.value)}type='drop'>
                         <option value= ''>-----</option>
@@ -95,6 +94,7 @@ function Spotify(props){
                     </select>
                     <button onClick = {()=>searchByCategory(selectedCategory)}>Search</button>
                 </div>
+                <h7>Click image for more information</h7>
             </div>
             {categoryData && <Playlist data={categoryData}/>}
         </>

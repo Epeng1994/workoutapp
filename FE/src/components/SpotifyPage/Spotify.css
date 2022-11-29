@@ -1,3 +1,8 @@
+h2{
+    margin:0;
+    margin-top:5vw;
+}
+
 .artist{
     display:flex;
     flex-flow: column;
@@ -17,6 +22,7 @@
 }
 
 .playlist{
+    margin-top: 5vw;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -28,13 +34,18 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
+    position: absolute;
+    background-color: black;
+    width: 75vw;
+    height: 90.5vw;
 }
 
 .playlist img{
-    width:50vw;
-    height:50vw;
+    width:75vw;
+    height:90vw;
+    margin-top: 4.5vw;
 }
 
 .playlistDescription{
-    width:50%;
+    width:70%;
 }
