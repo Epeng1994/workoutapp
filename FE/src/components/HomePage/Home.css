@@ -1,0 +1,17 @@
+.homeButtons{
+    display:flex;
+    flex-flow: column;
+    justify-content: space-around;
+    height: 90vw;
+    width: 60vw;
+}
+
+.homeButtons button{
+    padding: 5vw;
+}
+
+.container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
