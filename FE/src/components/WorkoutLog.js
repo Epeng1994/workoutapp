@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import Tracker from './Tracker/Tracker';
 import axios from 'axios';
 
 const filteredData= [
@@ -40,8 +39,7 @@ function currentWeekSet(){
 
 function WeeklyBar(props){
     const today = new Date().toISOString().split('T')[0]
-    const [dates,setDates] = useState(filteredData)
-    const [thisWeek, setThisWeek] = useState(currentWeekSet())
+
     const [message,setMessage] = useState('')
 
     const updateWorkout = e =>{
@@ -58,7 +56,6 @@ function WeeklyBar(props){
 
     return(
         <>  
-            <Tracker dates = {dates} thisWeek = {thisWeek}/>
             <form onSubmit={updateWorkout}>
                 <button>Check in for {today}</button>
             </form>
