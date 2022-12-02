@@ -26,11 +26,11 @@ function Playlist(props){
     return(
         <div className = "playlist">
             <img src = {data.images[0].url}/>
-            <div style= {{opacity : visible ? 0:.8}} onClick = {e=>Toggle(e.target)} className = 'playlistInfo'>
+            <div onClick = {e=>Toggle(e.target)} className = {`playlistInfo fade-${visible?'in':'out'}`}>
                 <h2>{data.name}</h2>
                 <p className = "playlistDescription">{data.description}</p>
             </div>
-            <button onClick = {()=>Redirect(data.external_urls.spotify)}>Listen Now on Spotify</button>
+            <button className ="" onClick = {()=>Redirect(data.external_urls.spotify)}>Listen Now on Spotify</button>
         </div>
     )
 }   

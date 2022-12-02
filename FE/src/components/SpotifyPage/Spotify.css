@@ -43,9 +43,19 @@ h2{
 .playlist img{
     width:75vw;
     height:90vw;
-    margin-top: 4.5vw;
+    margin-top: 4vw;
 }
 
 .playlistDescription{
     width:70%;
+}
+
+
+.fade-in{
+    opacity:.8;
+    transition: opacity .6s ease
+}
+.fade-out{
+    opacity:0;
+    transition: opacity .6s ease
 }
