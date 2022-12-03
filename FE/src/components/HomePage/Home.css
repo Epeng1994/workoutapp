@@ -15,3 +15,13 @@
     align-items: center;
     justify-content: center;
 }
+
+.homepage-option{
+    border-radius: 3vw;
+    font-size: 5vw;
+    background-image: linear-gradient(to bottom, #009200, #86e986);
+}
+
+.homepage-option:hover{
+    opacity:.8;
+}

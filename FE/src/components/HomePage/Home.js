@@ -10,7 +10,6 @@ function Home(props){
     const navigate = useNavigate()
 
     const Redirect= e =>{
-        //console.log(e)
         navigate(e)
     }
 
@@ -25,9 +24,9 @@ function Home(props){
                 <h1>Good {`${currentTimeString} ${'user'}`}</h1>
                 <div className = "container">
                     <div className = "homeButtons ">
-                        <button value = "/workoutlog" onClick = {e=>Redirect(e.target.value)}>Check in</button>
-                        <button value = "/spotify" onClick = {e=>Redirect(e.target.value)}>Spotify Music</button>
-                        <button value = "/timer" onClick = {e=>Redirect(e.target.value)}>Timer</button>
+                        <button className = "homepage-option" value = "/workoutlog" onClick = {e=>Redirect(e.target.value)}>Check in</button>
+                        <button className = "homepage-option" value = "/spotify" onClick = {e=>Redirect(e.target.value)}>Spotify Music</button>
+                        <button className = "homepage-option" value = "/timer" onClick = {e=>Redirect(e.target.value)}>Timer</button>
                     </div>
                 </div>
                 
