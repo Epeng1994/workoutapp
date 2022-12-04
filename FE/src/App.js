@@ -4,7 +4,7 @@ import {Routes,Route} from 'react-router-dom';
 import Calendar from './components/Calendar'
 import NavBar from './components/NavBar/NavBar';
 import 'react-calendar/dist/Calendar.css';
-import WorkoutLog from './components/WorkoutLog';
+import WorkoutLog from './components/WorkoutLog/WorkoutLog.js';
 import Home from './components/HomePage/Home';
 import Report from './components/Report/Report';
 import Spotify from './components/SpotifyPage/Spotify';
