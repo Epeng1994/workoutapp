@@ -11,7 +11,6 @@ function NavBar(props){
             <Link to='/' className = 'navBlock'>Home</Link>
             <Link to='/workoutlog' className = 'navBlock'>Workout Log</Link>
             <Link to='/spotify' className = 'navBlock'>Spotify</Link>
-            <Link to='/calendar' className = 'navBlock'>Calendar</Link>
             <Link to='/report' className = 'navBlock'>Report</Link>
         </nav>
     )

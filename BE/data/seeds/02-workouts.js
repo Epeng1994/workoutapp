@@ -8,15 +8,15 @@ exports.seed = async function(knex) {
       return db('workouts').insert([
         {
           user_id:1,
-          date:'2022-01-29',        
+          date:'2022-11-15',        
         },
         {
           user_id:1,
-          date:'2022-01-30',       
+          date:'2022-11-16',       
         },
         {
           user_id:2,
-          date:'2022-02-01',
+          date:'2022-11-17',
         },
       ]);
     })
