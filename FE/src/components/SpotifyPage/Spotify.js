@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
-import ReactPaginate from 'react-paginate';
 import './Spotify.css';
 import Playlist from './Playlist';
+import { fetchCategoryData } from '../../actions';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -16,6 +17,11 @@ function Spotify(props){
     const [selectedCategory, setSelectedCategory] = useState([]);
     const [categoryData, setCategoryData] = useState('');
 
+    function logout(){
+        setToken('');
+        window.localStorage.removeItem('token');
+    };
+
     useEffect(()=>{
         const hash = window.location.hash;
         let token = window.localStorage.getItem("token");
@@ -26,17 +32,13 @@ function Spotify(props){
             window.localStorage.setItem("token", token);
         };
         setToken(token);
-        if(categories.length<1)renderCategories();
+        (props.fetchCategoryData(token));
+        setCategories(props.categoryData)
         return ()=>{
-
+            
         }
     },[]);
 
-
-    function logout(){
-        setToken('');
-        window.localStorage.removeItem('token');
-    };
 
     async function renderCategories(){
         await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
@@ -50,7 +52,6 @@ function Spotify(props){
                 let textB = b.name.toUpperCase()
                 return (textA < textB) ? -1 : (textA>textB) ? 1 : 0
             })
-            //console.log(data)
             setCategories(data)
         })
         .catch(error=>{
@@ -101,5 +102,10 @@ function Spotify(props){
     )
 }
 
+const mapStateToProps = state =>{
+    return {
+        categoryData:state.categoryData
+    }
+}
 
-export default Spotify;
+export default connect(mapStateToProps,{fetchCategoryData})(Spotify);
