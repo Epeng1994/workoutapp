@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const FETCH_SPOTIFY_CATEGORIES = 'FETCH_SPOTIFY_CATEGORIES';
+export const SEARCH_SPOTIFY_CATEGORY = 'SEARCH_SPOTIFY_CATEGORY';
 
 export function fetchCategoryData(token){
     return async function(dispatch){
@@ -30,3 +31,26 @@ function setCategoryData(data){
     }
 }
 
+export function searchByCategory(category_id,token){
+    return async function(dispatch){
+        return await axios.get(`https://api.spotify.com/v1/browse/categories/${category_id}/playlists`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(result=>{
+            let randomIndexGenerator = Math.floor(Math.random()*20)
+            dispatch(setCurrentCategoryData(result.data.playlists.items[randomIndexGenerator]))
+        })
+        .catch(error=>{
+            console.log(error.response.data.error.message)
+        })
+    }
+}
+
+function setCurrentCategoryData(data){
+    return{
+        type:SEARCH_SPOTIFY_CATEGORY,
+        payload:data
+    }
+}

@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import './Spotify.css';
 import Playlist from './Playlist';
-import { fetchCategoryData } from '../../actions';
+import { fetchCategoryData,searchByCategory } from '../../actions';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -15,7 +14,6 @@ function Spotify(props){
     const [token,setToken] = useState('');
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
-    const [categoryData, setCategoryData] = useState('');
 
     function logout(){
         setToken('');
@@ -32,48 +30,14 @@ function Spotify(props){
             window.localStorage.setItem("token", token);
         };
         setToken(token);
-        (props.fetchCategoryData(token));
-        setCategories(props.categoryData)
+        if(categories.length===0){
+            props.fetchCategoryData(token);
+            setCategories(props.categoryData)
+        }
         return ()=>{
             
         }
-    },[]);
-
-
-    async function renderCategories(){
-        await axios.get("https://api.spotify.com/v1/browse/categories?country=SE&locale=sv_se&offset=5&limit=30",{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(result=>{
-            let data = [...result.data.categories.items].sort((a,b)=>{
-                let textA = a.name.toUpperCase()
-                let textB = b.name.toUpperCase()
-                return (textA < textB) ? -1 : (textA>textB) ? 1 : 0
-            })
-            setCategories(data)
-        })
-        .catch(error=>{
-            console.log(error.response.data.error.message)
-        })
-    };
-    
-
-    const searchByCategory = async category_id => {
-        await axios.get(`https://api.spotify.com/v1/browse/categories/${category_id}/playlists`,{
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        .then(result=>{
-            let randomIndexGenerator = Math.floor(Math.random()*20)
-            setCategoryData(result.data.playlists.items[randomIndexGenerator])
-        })
-        .catch(error=>{
-            console.log(error.response.data.error.message)
-        })
-    }
+    },[]);  
 
     return(
         <>
@@ -93,19 +57,20 @@ function Spotify(props){
                             )
                         }): null}
                     </select>
-                    <button onClick = {()=>searchByCategory(selectedCategory)}>Search</button>
+                    <button onClick = {()=>props.searchByCategory(selectedCategory, token)}>Search</button>
                 </div>
                 <h7>Click image for more information</h7>
             </div>
-            {categoryData && <Playlist data={categoryData}/>}
+            {props.currentPlaylist && <Playlist data={props.currentPlaylist}/>}
         </>
     )
 }
 
 const mapStateToProps = state =>{
     return {
-        categoryData:state.categoryData
+        categoryData:state.categoryData,
+        currentPlaylist: state.currentPlaylist
     }
 }
 
-export default connect(mapStateToProps,{fetchCategoryData})(Spotify);
+export default connect(mapStateToProps,{fetchCategoryData,searchByCategory})(Spotify);
