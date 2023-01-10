@@ -1,13 +1,4 @@
-/*
-Play/Pause
-Prev
-Next
-Like/Favorite
-Shuffle
-
-*/
-
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import './Spotify.css'
 
 

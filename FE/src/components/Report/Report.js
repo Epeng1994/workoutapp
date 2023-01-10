@@ -63,8 +63,3 @@ function Report(){
 };
 
 export default Report;
-/*
-    % of days worked out for this month
-
-
-*/
