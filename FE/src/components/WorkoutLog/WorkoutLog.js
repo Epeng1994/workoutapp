@@ -21,6 +21,7 @@ function WeeklyBar(props){
 
     return(
         <div className = "container">  
+            <h2>Check in for {today}</h2>
             <button className = "button-option" onClick = {()=>updateWorkout()}>Check in</button>
             {message ? <div>{message}</div>: null}
         </div>

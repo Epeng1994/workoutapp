@@ -1,13 +1,16 @@
 .button-option{
     border-radius: 3vw;
     font-size: 5vw;
-    background-image: linear-gradient(to bottom, #009200, #86e986);
-    padding:15vw;
+    background-image: linear-gradient(to bottom, #FFDB89, #ffc94d);
+    padding:20vw;
+    margin-top: 20vw;
 }
 
 .container{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-flow: column;
     height:80vw;
+    margin-top: 20vw;
 }
