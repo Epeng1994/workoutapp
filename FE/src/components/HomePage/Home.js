@@ -20,7 +20,7 @@ function Home(props){
         <>
             <div>
                 <div className = 'title'>Working It Out</div>
-                <h1>Good {`${currentTimeString} ${'user'}`}</h1>
+                <h2>Good {`${currentTimeString} ${'user'}`}</h2>
                 <div className = "container">
                     <div className = "homeButtons ">
                         <button className = "homepage-option" value = "/workoutlog" onClick = {e=>Redirect(e.target.value)}>Check in</button>
