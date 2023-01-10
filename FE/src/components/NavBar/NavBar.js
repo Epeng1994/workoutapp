@@ -14,43 +14,42 @@ function NavBar(props){
         {
             src:"./homepage.png",
             value:"/",
-            id:"home"
+            id:"home",
+            name:'Home'
         },
         {
             src:"./checkmark.png",
             value:"/workoutlog",
-            id:"workoutlog"
+            id:"workoutlog",
+            name:'Check In'
         },
         {
             src:"./spotify.png",
             value:"/spotify",
-            id:"spotify"
+            id:"spotify",
+            name:'Spotify'
         },
         {
             src:"./timer.png",
             value:"/timer",
-            id:"timer"
+            id:"timer",
+            name:'Timer'
         },
     ]
 
 
-    useEffect(()=>{
-
-    },[])
-
     return(
-        <nav>
-            <ul>
-                {
-                    navBarArray.map(item=>{
-                        return(
-                            <li>
-                                <img className = "navBarIcon" src= {item.src} id = {item.id} value = {item.value} onClick = {Redirect}/>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+        <nav className = 'nav-bar'>
+            {
+                navBarArray.map(item=>{
+                    return(
+                        <div onClick = {Redirect}>
+                            <img className = "navBarIcon" src= {item.src} id = {item.id} value = {item.value}/>
+                            <p>{item.name}</p>
+                        </div>
+                    )
+                })
+            }
         </nav>
     )
 }

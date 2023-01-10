@@ -1,25 +1,28 @@
 nav{
-    background-color: #474444;
+    background-color: #FFDB89;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    justify-content: center;
     position: absolute;
     bottom: 0vw;
     width:100vw;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
 }
-
-nav ul{
-    width:100%;
-    display:flex;
-    justify-content: space-around;
-    list-style: none;
-}
-
-nav ul li {
-    color:aliceblue;
-    text-decoration: none;
-}
-
 .navBarIcon{
     width:10vw;
+}
+.nav-bar div{
+    display:flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width:20vw;
+    padding:3vw;
+}
+
+.nav-bar p {
+    border:0;
+    margin:0;
 }
