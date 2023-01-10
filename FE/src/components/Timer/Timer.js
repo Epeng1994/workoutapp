@@ -39,13 +39,15 @@ function Timer(props){
     }
 
     return(
-        <>
-            <div>{(Math.floor(time/360000)%24<10?'0':'') + Math.floor(time/360000)%24}:{(Math.floor(time/6000)%60<10?'0':'') + Math.floor(time/6000)%60}:{(Math.floor(time/100)%60 < 10? `0`:'')+Math.floor(time/100)%60}:{(time%100 < 10? `0`:'')+time%100}</div>
+        <div className ='timer'>
+            <h1>{(Math.floor(time/360000)%24<10?'0':'') + Math.floor(time/360000)%24}:{(Math.floor(time/6000)%60<10?'0':'') + Math.floor(time/6000)%60}:{(Math.floor(time/100)%60 < 10? `0`:'')+Math.floor(time/100)%60}:{(time%100 < 10? `0`:'')+time%100}</h1>
             <button value = {mode} onClick = {e=>modeChange(e)}>{mode}</button>
             {
                 time === 0 ? '' : timer===true ? <button onClick = {addLap}>Lap</button> : <button onClick = {resetTimer}>Reset</button>
             }
-            
+            <div className = 'lap_Category_Container'>
+                <h3>Lap / Time</h3>
+            </div>
             <div className = 'lapContainer'>
                 {lap.map((time,iterate)=>{
                     return(
@@ -53,7 +55,7 @@ function Timer(props){
                     )
                 })}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,5 +1,19 @@
 .lapContainer{
     overflow: auto;
     height:50vw;
-    border:solid red 1px;
+    margin-top: 5vw;
+}
+.lap_Category_Container{
+    display:flex;
+    justify-content: space-around;
+}
+
+h1{
+    font-size: 12vw;
+    margin-top:40vw;
+}
+
+.timer button{
+    padding:3vw;
+    border-radius: 3vw;
 }
