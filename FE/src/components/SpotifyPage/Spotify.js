@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import './Spotify.css';
 import Playlist from './Playlist';
-import { fetchCategoryData,searchByCategory } from '../../actions';
+import { fetchCategoryData,searchByCategory,clearPlaylistData } from '../../actions';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -50,17 +50,18 @@ function Spotify(props){
                     <label for='categories'>Categories</label>
                     <select onChange ={e=> setSelectedCategory(e.target.value)}type='drop'>
                         <option value= ''>-----</option>
-                        {categories ? categories.sort(a=>a.name).map(item=>{
+                        {categories ? categories.map(item=>{
                             return(
                                 <option id = {item.id} value = {item.id}>{item.name}</option>
                             )
                         }): null}
                     </select>
                     <button onClick = {()=>props.searchByCategory(selectedCategory, token)}>Search</button>
+                    <button onClick = {()=>props.clearPlaylistData()}>Clear</button>
                 </div>
                 <h7>Click image for more information</h7>
             </div>
-            {props.currentPlaylist && <Playlist data={props.currentPlaylist}/>}
+            {props.currentPlaylist && <Playlist/>}
         </>
     )
 }
@@ -72,4 +73,4 @@ const mapStateToProps = state =>{
     }
 }
 
-export default connect(mapStateToProps,{fetchCategoryData,searchByCategory})(Spotify);
+export default connect(mapStateToProps,{fetchCategoryData,searchByCategory, clearPlaylistData})(Spotify);
