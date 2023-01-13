@@ -1,7 +1,13 @@
 import { FETCH_SPOTIFY_CATEGORIES, SEARCH_SPOTIFY_CATEGORY, CLEAR_SPOTIFY_PLAYLIST } from '../actions/index.js';
 
 
-export default function(state={},action){
+const initialState = {
+    currentPlaylist:null,
+    categoryData:[]
+}
+
+
+export default function(state=initialState,action){
     switch(action.type){
         case FETCH_SPOTIFY_CATEGORIES:
             return {
@@ -13,7 +19,7 @@ export default function(state={},action){
             }
         case CLEAR_SPOTIFY_PLAYLIST:
             return {
-                ...state,categoryData: action.payload
+                ...state,currentPlaylist: null
             }
         default:
             return state;
