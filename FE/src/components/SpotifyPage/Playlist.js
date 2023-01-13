@@ -1,9 +1,12 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import './Spotify.css'
 import { connect } from 'react-redux'
 
 function Playlist(props){
     const [visible,setVisible] = useState(false)
+    const [playlist,setPlaylist] = useState(props.currentPlaylist ? props.currentPlaylist : null)
+
+
     const Redirect = e =>{
         window.location.replace(e)
     }
@@ -14,12 +17,12 @@ function Playlist(props){
 
     return(
         <div className = "playlist">
-            <img src = {props.currentPlaylist.images[0].url}/>
+            <img src = {playlist.images[0].url}/>
             <div onClick = {e=>Toggle(e.target)} className = {`playlistInfo fade-${visible?'in':'out'}`}>
-                <h2>{props.currentPlaylist.name}</h2>
-                <p className = "playlistDescription">{props.currentPlaylist.description}</p>
+                <h2>{playlist.name}</h2>
+                <p className = "playlistDescription">{playlist.description}</p>
             </div>
-            <button className ="" onClick = {()=>Redirect(props.currentPlaylist.external_urls.spotify)}>Listen Now on Spotify</button>
+            <button className = "playlist-button" onClick = {()=>Redirect(playlist.external_urls.spotify)}>Listen Now on Spotify</button>
         </div>
     )
 }   

@@ -36,21 +36,25 @@ h2{
     flex-flow: column;
     position: absolute;
     background-color: black;
-    width: 75vw;
-    height: 90.5vw;
+    width:85vw;
+    height:55vh;
+    top:18%;
     color:aliceblue;
 }
 
 .playlist img{
-    width:75vw;
-    height:90vw;
+    width:85vw;
+    height:55vh;
     margin-top: 4vw;
 }
 
 .playlistDescription{
     width:70%;
 }
-
+.playlist-button{
+    margin-top: 5vw;
+    padding:6vw;
+}
 
 .fade-in{
     opacity:.8;
