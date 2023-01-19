@@ -6,6 +6,9 @@ function Playlist(props){
     const [visible,setVisible] = useState(false)
     const [playlist,setPlaylist] = useState(props.currentPlaylist ? props.currentPlaylist : null)
 
+    useEffect(()=>{
+        setPlaylist(props.currentPlaylist)
+    },[props.currentPlaylist])
 
     const Redirect = e =>{
         window.location.replace(e)
@@ -17,7 +20,7 @@ function Playlist(props){
 
     return(
         <div className = "playlist">
-            <img src = {playlist.images[0].url}/>
+            <img alt = 'playlist-icon' src = {playlist.images[0].url}/>
             <div onClick = {e=>Toggle(e.target)} className = {`playlistInfo fade-${visible?'in':'out'}`}>
                 <h2>{playlist.name}</h2>
                 <p className = "playlistDescription">{playlist.description}</p>

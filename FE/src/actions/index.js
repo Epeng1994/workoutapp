@@ -33,15 +33,14 @@ function setCategoryData(data){
 };
 
 export function clearPlaylistData(){
-    return async function(dispatch){
+    return function(dispatch){
         return dispatch(clearPlaylist())
     };
 };
 
 function clearPlaylist(){
     return{
-        type:CLEAR_SPOTIFY_PLAYLIST,
-        payload:{}
+        type:CLEAR_SPOTIFY_PLAYLIST
     };
 };
 
