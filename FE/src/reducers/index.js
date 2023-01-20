@@ -3,7 +3,8 @@ import { FETCH_SPOTIFY_CATEGORIES, SEARCH_SPOTIFY_CATEGORY, CLEAR_SPOTIFY_PLAYLI
 
 const initialState = {
     currentPlaylist:null,
-    categoryData:[]
+    categoryData:[],
+    token:''
 }
 
 

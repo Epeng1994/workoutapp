@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import './Spotify.css';
 import Playlist from './Playlist';
 import { fetchCategoryData,searchByCategory,clearPlaylistData } from '../../actions';
+import SpotifyAuth from './SpotifyLogin';
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -11,40 +12,18 @@ const RESPONSE_TYPE = process.env.REACT_APP_RESPONSE_TYPE;
 const auth = process.env.REACT_APP_0AUTH_TOKEN;
 
 function Spotify(props){
-    const [token,setToken] = useState('');
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
-
-    function logout(){
-        setToken('');
-        window.localStorage.removeItem('token');
-    };
+    const {token} = props
 
     useEffect(()=>{
-        const hash = window.location.hash;
-        let token = window.localStorage.getItem("token");
-        if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
-            window.location.hash = "";
-            window.localStorage.setItem("token", token);
-        };
-        setToken(token);
-        if(categories.length===0){
-            props.fetchCategoryData(token);
-            setCategories(props.categoryData)
-        }
-        return ()=>{
-            
-        }
+
     },[]);  
 
     return(
         <>
             <div>
-                {!token ?
-                    <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
-                    : <button onClick={logout}>Logout</button>
-                }
+                <SpotifyAuth/>
                 <div>
                     <h3>Need a playlist suggestion?</h3>
                     <label for='categories'>Categories</label>
@@ -69,7 +48,8 @@ function Spotify(props){
 const mapStateToProps = state =>{
     return {
         categoryData:state.categoryData,
-        currentPlaylist: state.currentPlaylist
+        currentPlaylist: state.currentPlaylist,
+        token:state.token
     }
 }
 
