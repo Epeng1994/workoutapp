@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useState, useNavigate } from "react-router-dom";
 import React, {useEffect} from 'react';
 import "./Home.css";
 
 function Home(props){
     const currentTime = new Date().getHours();
     const currentTimeString = currentTime >= 0 && currentTime < 12 ? 'Morning' : currentTime >= 12 && currentTime < 18 ? 'Afternoon' : 'Evening'
-
+    const [streak,setStreak] = useState(0)
     const navigate = useNavigate()
 
     const Redirect= e =>{
@@ -28,7 +28,7 @@ function Home(props){
                         <button className = "homepage-option" value = "/timer" onClick = {e=>Redirect(e.target.value)}>Timer</button>
                     </div>
                 </div>
-                
+                {streak}
             </div>
 
         </>
