@@ -6,11 +6,10 @@ async function uniqueDate(req,res,next){
     const id = req.params.id
     model.findWorkoutByDate(id,date)
         .then(result=>{
-            //res.json(result)
             if(result.length>0){
                 return res.status(400).json(`You've already logged that day`)
             }else{
-                req.result = result
+                req.result = {"user_id":id,"date":date}
                 next()
             }
         })

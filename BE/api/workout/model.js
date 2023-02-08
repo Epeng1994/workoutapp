@@ -8,7 +8,7 @@ async function getWorkoutsById(user_id){
     return await db('workouts').where({user_id})
 }
 
-async function addWorkoutById(workout){
+async function addWorkout(workout){
     return await db('workouts').insert(workout)
 }
 
@@ -19,6 +19,6 @@ async function findWorkoutByDate(id,date){
 module.exports = {
     getAllWorkouts,
     getWorkoutsById,
-    addWorkoutById,
+    addWorkout,
     findWorkoutByDate
 }

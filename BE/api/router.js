@@ -27,7 +27,7 @@ router.get('/users/:id',(req,res,next)=>{
         })
 })
 
-router.post('/users/:id',(req,res,next)=>{
+router.post('/users/:id', (req,res,next)=>{
     const id = req.params
 
 })

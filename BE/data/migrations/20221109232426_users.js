@@ -12,6 +12,7 @@ exports.up = function(knex) {
   .createTable('workouts',tbl=>{
     tbl.text('user_id').unsigned().notNullable().references('user_id').inTable('users').onUpdate('CASCADE').onDelete('CASCADE')
     tbl.string('date').notNullable()
+    tbl.integer('streak').defaultTo(0)
   })
 };
 

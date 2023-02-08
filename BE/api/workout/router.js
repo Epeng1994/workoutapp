@@ -27,8 +27,13 @@ router.get('/:id', (req,res,next)=>{
 })
 
 router.post('/:id', middleware.uniqueDate,(req,res,next)=>{
-    const result = req.result
-    res.json(result)
+    model.addWorkout(req.result)
+        .then(result=>{
+            res.json('Workout logged')
+        })
+        .catch(error=>{
+            res.json(error)
+        })
 })
 
 
